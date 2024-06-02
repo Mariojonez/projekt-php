@@ -22,7 +22,6 @@
             "src/Repository/.gitignore"
         ]
     },
-<<<<<<< HEAD
     "doctrine/doctrine-fixtures-bundle": {
         "version": "3.6",
         "recipe": {
@@ -35,8 +34,6 @@
             "src/DataFixtures/AppFixtures.php"
         ]
     },
-=======
->>>>>>> f8c452a109c8a5e04e648b2df84387c6f9bd6364
     "doctrine/doctrine-migrations-bundle": {
         "version": "3.3",
         "recipe": {
@@ -50,7 +47,6 @@
             "migrations/.gitignore"
         ]
     },
-<<<<<<< HEAD
     "friendsofphp/php-cs-fixer": {
         "version": "3.56",
         "recipe": {
@@ -78,8 +74,6 @@
             "phpstan.dist.neon"
         ]
     },
-=======
->>>>>>> f8c452a109c8a5e04e648b2df84387c6f9bd6364
     "phpunit/phpunit": {
         "version": "9.6",
         "recipe": {
@@ -94,7 +88,6 @@
             "tests/bootstrap.php"
         ]
     },
-<<<<<<< HEAD
     "squizlabs/php_codesniffer": {
         "version": "3.9",
         "recipe": {
@@ -107,8 +100,18 @@
             "phpcs.xml.dist"
         ]
     },
-=======
->>>>>>> f8c452a109c8a5e04e648b2df84387c6f9bd6364
+    "stof/doctrine-extensions-bundle": {
+        "version": "1.11",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "1.2",
+            "ref": "e805aba9eff5372e2d149a9ff56566769e22819d"
+        },
+        "files": [
+            "config/packages/stof_doctrine_extensions.yaml"
+        ]
+    },
     "symfony/asset-mapper": {
         "version": "6.4",
         "recipe": {
