@@ -8,11 +8,11 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Form\Type\CategoryType;
 use App\Service\CategoryServiceInterface;
+use App\Service\TaskServiceInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 
@@ -22,14 +22,25 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 #[Route('/category')]
 class CategoryController extends AbstractController
 {
+    private CategoryServiceInterface $categoryService;
+    private TaskServiceInterface $taskService;
+    private TranslatorInterface $translator;
+
     /**
      * Constructor.
      *
      * @param CategoryServiceInterface $categoryService Category service
+     * @param TaskServiceInterface     $taskService     Task service
      * @param TranslatorInterface      $translator      Translator
      */
-    public function __construct(private readonly CategoryServiceInterface $categoryService, private readonly TranslatorInterface $translator)
-    {
+    public function __construct(
+        CategoryServiceInterface $categoryService,
+        TaskServiceInterface $taskService,
+        TranslatorInterface $translator
+    ) {
+        $this->categoryService = $categoryService;
+        $this->taskService = $taskService;
+        $this->translator = $translator;
     }
 
     /**
@@ -38,8 +49,9 @@ class CategoryController extends AbstractController
      * @return Response HTTP response
      */
     #[Route(name: 'category_index', methods: 'GET')]
-    public function index(#[MapQueryParameter] int $page = 1): Response
+    public function index(Request $request): Response
     {
+        $page = $request->query->getInt('page', 1);
         $pagination = $this->categoryService->getPaginatedList($page);
 
         return $this->render('category/index.html.twig', ['pagination' => $pagination]);
@@ -97,6 +109,7 @@ class CategoryController extends AbstractController
             ['form' => $form->createView()]
         );
     }
+
     /**
      * Edit action.
      *
@@ -123,7 +136,7 @@ class CategoryController extends AbstractController
 
             $this->addFlash(
                 'success',
-                $this->translator->trans('message.created_successfully')
+                $this->translator->trans('message.updated_successfully')
             );
 
             return $this->redirectToRoute('category_index');
@@ -137,6 +150,7 @@ class CategoryController extends AbstractController
             ]
         );
     }
+
     /**
      * Delete action.
      *
@@ -148,7 +162,7 @@ class CategoryController extends AbstractController
     #[Route('/{id}/delete', name: 'category_delete', requirements: ['id' => '[1-9]\d*'], methods: 'GET|DELETE')]
     public function delete(Request $request, Category $category): Response
     {
-        if(!$this->categoryService->canBeDeleted($category)) {
+        if (!$this->categoryService->canBeDeleted($category)) {
             $this->addFlash(
                 'warning',
                 $this->translator->trans('message.category_contains_tasks')
@@ -185,5 +199,28 @@ class CategoryController extends AbstractController
                 'category' => $category,
             ]
         );
+    }
+
+    /**
+     * Show tasks action.
+     *
+     * @param Category $category Category
+     *
+     * @return Response HTTP response
+     */
+    #[Route(
+        '/{id}/tasks',
+        name: 'category_show_tasks',
+        requirements: ['id' => '[1-9]\d*'],
+        methods: 'GET'
+    )]
+    public function showTasks(Category $category): Response
+    {
+        $tasks = $this->taskService->getTasksByCategory($category);
+
+        return $this->render('category/show_tasks.html.twig', [
+            'category' => $category,
+            'tasks' => $tasks,
+        ]);
     }
 }

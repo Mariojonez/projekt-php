@@ -5,6 +5,7 @@
 
 namespace App\Service;
 
+use App\Entity\Category;
 use App\Entity\Task;
 use App\Repository\TaskRepository;
 use Doctrine\ORM\OptimisticLockException;
@@ -17,6 +18,7 @@ use Knp\Component\Pager\PaginatorInterface;
  */
 class TaskService implements TaskServiceInterface
 {
+
     /**
      * Items per page.
      *
@@ -80,4 +82,8 @@ class TaskService implements TaskServiceInterface
         $this->taskRepository->delete($task);
     }
 
+    public function getTasksByCategory(Category $category): array
+    {
+        return $this->taskRepository->findBy(['category' => $category]);
+    }
 }

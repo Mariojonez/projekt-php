@@ -43,4 +43,6 @@ interface CategoryServiceInterface
      */
     public function canBeDeleted(Category $category): bool;
 
+
+
 }

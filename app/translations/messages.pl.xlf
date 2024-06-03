@@ -32,19 +32,19 @@
       </trans-unit>
       <trans-unit id="message.empty_list">
         <source>message.empty_list</source>
-        <target>List is empty.</target>
+        <target>Lista jest pusta.</target>
       </trans-unit>
       <trans-unit id="message.record_not_found">
         <source>message.record_not_found</source>
-        <target>Record not found.</target>
+        <target>Element nie znazleziony.</target>
       </trans-unit>
       <trans-unit id="title.record_list">
         <source>title.record_list</source>
-        <target>Records list</target>
+        <target>Lista rekordów</target>
       </trans-unit>
       <trans-unit id="title.record_view">
         <source>title.record_view</source>
-        <target>Record view #%id%</target>
+        <target>Widok #%id%</target>
       </trans-unit>
       <trans-unit id="title.category_list">
          <source>title.category_list</source>
@@ -103,6 +103,10 @@
               <source>message.deleted_successfully</source>
               <target>Sukces!</target>
             </trans-unit>
+            <trans-unit id="message.updated_successfully">
+              <source>message.updated_successfully</source>
+              <target>Sukces!</target>
+            </trans-unit>
             <trans-unit id="action.save">
               <source>action.save</source>
               <target>Zapisz</target>
@@ -142,6 +146,15 @@
             <trans-unit id="title.task_create">
               <source>title.task_create</source>
               <target>Dodawanie</target>
+            </trans-unit>
+<!--             Pokaż taski -->
+            <trans-unit id="action.show_tasks">
+              <source>action.show_tasks</source>
+              <target>Pokaż elementy</target>
+            </trans-unit>
+            <trans-unit id="title.show_tasks">
+              <source>title.show_tasks</source>
+              <target>Elementy w kategorii</target>
             </trans-unit>
     </body>
   </file>

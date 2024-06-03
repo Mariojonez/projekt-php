@@ -48,6 +48,9 @@
                         <a href="{{ url('category_delete', {id: category.id}) }}" title="{{ 'action.delete'|trans }}" class="btn btn-primary btn-sm">
                             {{ 'action.delete'|trans }}
                         </a>
+                        <a href="{{ url('category_show_tasks', {id: category.id}) }}" title="{{ 'action.show_tasks'|trans }}" class="btn btn-primary btn-sm">
+                            {{ 'action.show_tasks'|trans }}
+                        </a>
                     </td>
 
                 </tr>
