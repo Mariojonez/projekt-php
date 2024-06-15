@@ -21,15 +21,30 @@
     {% endblock %}
 </head>
 <body>
+<header class="p-3 mb-2 bg-primary text-white">
+    <div class="container">
+        <div class="d-flex flex-row-reverse">
+            <div class="text-end">
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <span class="me-2">{{ app.user.email }}</span>
+                    <a href="{{ url('app_logout') }}" class="btn btn-secondary">{{ 'action_logout'|trans }}</a>
+                {% else %}
+                    <a href="{{ url('app_login') }}" class="btn btn-secondary">{{ 'action_login'|trans }}</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</header>
 
 <main role="main" class="container-fluid">
     <div class="container-fluid">
         {% include 'default/_flash_messages.html.twig' %}
-        {% block body %}{% endblock %}
+        {% block body %}
+        {% endblock %}
     </div>
 </main>
+
 {% block javascripts %}
-    {# {% block importmap %}{{ importmap('app') }}{% endblock %}#}
     <script
             src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
             integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8="

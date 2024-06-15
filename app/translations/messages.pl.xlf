@@ -26,6 +26,10 @@
         <source>label.tags</source>
         <target>Tagi</target>
       </trans-unit>
+      <trans-unit id="label.author">
+        <source>label.author</source>
+        <target>Autor</target>
+      </trans-unit>
       <trans-unit id="label.none">
         <source>label.none</source>
         <target>Puste</target>
@@ -52,7 +56,7 @@
       </trans-unit>
       <trans-unit id="title.task_list">
           <source>title.task_list</source>
-          <target>Katalog</target>
+          <target>Wypożyczalnia</target>
       </trans-unit>
       <trans-unit id="action.show">
       	<source>action.show</source>
@@ -81,6 +85,15 @@
             <trans-unit id="label_category">
               <source>label_category</source>
               <target>Kategoria</target>
+            </trans-unit>
+<!--             Nawigacja Katalog & Kategorie -->
+            <trans-unit id="action.category_list">
+              <source>action.category_list</source>
+              <target>Kategorie</target>
+            </trans-unit>
+            <trans-unit id="action.task_list">
+              <source>action.task_list</source>
+              <target>Wypożyczalnia</target>
             </trans-unit>
 <!--             Operacje -->
             <trans-unit id="action.back_to_list">
@@ -155,6 +168,15 @@
             <trans-unit id="title.show_tasks">
               <source>title.show_tasks</source>
               <target>Elementy w kategorii</target>
+            </trans-unit>
+<!--             Logowanie -->
+            <trans-unit id="action_login">
+              <source>action_login</source>
+              <target>Zaloguj</target>
+            </trans-unit>
+            <trans-unit id="action_logout">
+              <source>action_logout</source>
+              <target>Wyloguj</target>
             </trans-unit>
     </body>
   </file>
