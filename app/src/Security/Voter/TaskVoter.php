@@ -88,7 +88,7 @@ class TaskVoter extends Voter
      */
     private function canEdit(Task $task, UserInterface $user): bool
     {
-        return $task->getAuthor() === $user;
+        return $this->isAdmin($user);
     }
 
     /**
@@ -101,7 +101,7 @@ class TaskVoter extends Voter
      */
     private function canView(Task $task, UserInterface $user): bool
     {
-        return $task->getAuthor() === $user;
+        return true;
     }
 
     /**
@@ -114,6 +114,18 @@ class TaskVoter extends Voter
      */
     private function canDelete(Task $task, UserInterface $user): bool
     {
-        return $task->getAuthor() === $user;
+        return $this->isAdmin($user);
+    }
+
+    /**
+     * Checks if user has admin role.
+     *
+     * @param UserInterface $user User
+     *
+     * @return bool Result
+     */
+    private function isAdmin(UserInterface $user): bool
+    {
+        return in_array('ROLE_ADMIN', $user->getRoles());
     }
 }

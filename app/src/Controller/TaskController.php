@@ -62,17 +62,17 @@ class TaskController extends AbstractController
         requirements: ['id' => '[1-9]\d*'],
         methods: 'GET'
     )]
-    #[IsGranted('VIEW', subject: 'task')]
+    // #[IsGranted('VIEW', subject: 'task')]
     public function show(Task $task): Response
     {
-        if ($task->getAuthor() !== $this->getUser()) {
-            $this->addFlash(
-                'warning',
-                $this->translator->trans('message.record_not_found')
-            );
-
-            return $this->redirectToRoute('task_index');
-        }
+//        if ($task->getAuthor() !== $this->getUser()) {
+//            $this->addFlash(
+//                'warning',
+//                $this->translator->trans('message.record_not_found')
+//            );
+//
+//            return $this->redirectToRoute('task_index');
+//        }
 
         return $this->render(
             'task/show.html.twig',
