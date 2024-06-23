@@ -84,6 +84,10 @@ class TaskService implements TaskServiceInterface
         $this->taskRepository->delete($task);
     }
 
+    /**
+     * Get task by category.
+     *
+     */
     public function getTasksByCategory(Category $category): array
     {
         return $this->taskRepository->findBy(['category' => $category]);

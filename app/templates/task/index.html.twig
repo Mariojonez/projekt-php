@@ -13,9 +13,6 @@
                 {{ knp_pagination_render(pagination) }}
             </div>
             <div class="col-md-6">
-                <a href="{{ url('task_create') }}" title="{{ 'action.create'|trans }}" class="btn btn-primary">
-                    {{ 'action.create'|trans }}
-                </a>
                 <a href="{{ url('category_index') }}" title="{{ 'action.category_list'|trans }}" class="btn btn-secondary">
                     {{ 'action.category_list'|trans }}
                 </a>
@@ -57,6 +54,11 @@
                         {% if is_granted('DELETE', task) %}
                             <a class="btn btn-primary btn-sm" href="{{ url('task_delete', {id: task.id}) }}" title="{{ 'action.delete'|trans }}">
                                 {{ 'action.delete'|trans }}
+                            </a>
+                        {% endif %}
+                        {% if is_granted('CREATE', task) %}
+                            <a class="btn btn-primary btn-sm" href="{{ url('task_create', {id: task.id}) }}" title="{{ 'action.create'|trans }}">
+                                {{ 'action.create'|trans }}
                             </a>
                         {% endif %}
                     </td>

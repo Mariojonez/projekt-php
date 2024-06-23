@@ -37,6 +37,13 @@ class TaskVoter extends Voter
     private const DELETE = 'DELETE';
 
     /**
+     * Delete permission.
+     *
+     * @const string
+     */
+    private const CREATE = 'CREATE';
+
+    /**
      * Determines if the attribute and subject are supported by this voter.
      *
      * @param string $attribute An attribute
@@ -46,8 +53,8 @@ class TaskVoter extends Voter
      */
     protected function supports(string $attribute, mixed $subject): bool
     {
-        return in_array($attribute, [self::EDIT, self::VIEW, self::DELETE])
-            && $subject instanceof Task;
+        return in_array($attribute, [self::EDIT, self::VIEW, self::DELETE, self::CREATE])
+            && ($subject instanceof Task || $subject === null);
     }
 
     /**
@@ -63,17 +70,19 @@ class TaskVoter extends Voter
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
         $user = $token->getUser();
-        if (!$user instanceof UserInterface) {
-            return false;
+
+        if ($attribute === self::VIEW) {
+            return true; // Allow everyone to view
         }
-        if (!$subject instanceof Task) {
-            return false;
+
+        if (!$user instanceof UserInterface) {
+            return false; // If the user is not logged in, deny other actions
         }
 
         return match ($attribute) {
             self::EDIT => $this->canEdit($subject, $user),
-            self::VIEW => $this->canView($subject, $user),
             self::DELETE => $this->canDelete($subject, $user),
+            self::CREATE => $this->canCreate($user),
             default => false,
         };
     }
@@ -113,6 +122,18 @@ class TaskVoter extends Voter
      * @return bool Result
      */
     private function canDelete(Task $task, UserInterface $user): bool
+    {
+        return $this->isAdmin($user);
+    }
+
+    /**
+     * Checks if user can create task.
+     *
+     * @param UserInterface $user User
+     *
+     * @return bool Result
+     */
+    private function canCreate(UserInterface $user): bool
     {
         return $this->isAdmin($user);
     }

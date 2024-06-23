@@ -88,6 +88,7 @@ class TaskController extends AbstractController
      * @return Response HTTP response
      */
     #[Route('/create', name: 'task_create', methods: 'GET|POST')]
+    #[IsGranted('CREATE')]
     public function create(Request $request): Response
     {
         /** @var User $user */

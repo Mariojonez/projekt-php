@@ -41,6 +41,8 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
         # - { path: ^/login, roles: PUBLIC_ACCESS}
+        # - { path: ^/category, roles: ROLE_ADMIN}
+        - { path: ^/tags, roles: ROLE_ADMIN}
         - { path: ^/, roles: PUBLIC_ACCESS}
         - { path: ^/, roles: ROLE_USER}
 
