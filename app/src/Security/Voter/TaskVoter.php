@@ -5,6 +5,7 @@
 
 namespace App\Security\Voter;
 
+use App\Entity\Category;
 use App\Entity\Task;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
@@ -37,11 +38,32 @@ class TaskVoter extends Voter
     private const DELETE = 'DELETE';
 
     /**
-     * Delete permission.
+     * Create permission.
      *
      * @const string
      */
     private const CREATE = 'CREATE';
+
+    /**
+     * Show permission.
+     *
+     * @const string
+     */
+    private const SHOW = 'SHOW';
+
+    /**
+     * Edit permission.
+     *
+     * @const string
+     */
+    private const EDIT_CATEGORY = 'EDIT_CATEGORY';
+
+    /**
+     * Delete permission.
+     *
+     * @const string
+     */
+    private const DELETE_CATEGORY = 'DELETE_CATEGORY';
 
     /**
      * Determines if the attribute and subject are supported by this voter.
@@ -53,8 +75,8 @@ class TaskVoter extends Voter
      */
     protected function supports(string $attribute, mixed $subject): bool
     {
-        return in_array($attribute, [self::EDIT, self::VIEW, self::DELETE, self::CREATE])
-            && ($subject instanceof Task || $subject === null);
+        return in_array($attribute, [self::EDIT, self::VIEW, self::DELETE, self::CREATE, self::SHOW])
+            && ($subject instanceof Task || $subject === null || $subject instanceof Category);
     }
 
     /**
@@ -71,7 +93,7 @@ class TaskVoter extends Voter
     {
         $user = $token->getUser();
 
-        if ($attribute === self::VIEW) {
+        if ($attribute === self::VIEW || $attribute === self::SHOW){
             return true; // Allow everyone to view
         }
 
@@ -83,6 +105,8 @@ class TaskVoter extends Voter
             self::EDIT => $this->canEdit($subject, $user),
             self::DELETE => $this->canDelete($subject, $user),
             self::CREATE => $this->canCreate($user),
+            self::EDIT_CATEGORY => $this->canEdit($subject, $user),
+            self::DELETE_CATEGORY => $this->canDelete($subject, $user),
             default => false,
         };
     }
@@ -148,5 +172,31 @@ class TaskVoter extends Voter
     private function isAdmin(UserInterface $user): bool
     {
         return in_array('ROLE_ADMIN', $user->getRoles());
+    }
+
+    /**
+     * Checks if user can delete category.
+     *
+     * @param Category          $category Category entity
+     * @param UserInterface     $user User
+     *
+     * @return bool Result
+     */
+    private function canDeleteCategory(Category $category, UserInterface $user): bool
+    {
+        return $this->isAdmin($user);
+    }
+
+    /**
+     * Checks if user can edit category.
+     *
+     * @param Category          $category Category entity
+     * @param UserInterface     $user User
+     *
+     * @return bool Result
+     */
+    private function canEditCategory(Category $category, UserInterface $user): bool
+    {
+        return $this->isAdmin($user);
     }
 }

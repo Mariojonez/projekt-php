@@ -223,7 +223,6 @@ class Task
         $this->tags->removeElement($tag);
     }
 
-
     public function getAuthor(): ?User
     {
         return $this->author;

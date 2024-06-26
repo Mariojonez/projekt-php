@@ -170,13 +170,58 @@
               <target>Elementy w kategorii</target>
             </trans-unit>
 <!--             Logowanie -->
-            <trans-unit id="action_login">
-              <source>action_login</source>
+            <trans-unit id="title.login">
+              <source>title.login</source>
               <target>Zaloguj</target>
             </trans-unit>
-            <trans-unit id="action_logout">
-              <source>action_logout</source>
+            <trans-unit id="action.login">
+              <source>action.login</source>
+              <target>Zaloguj</target>
+            </trans-unit>
+            <trans-unit id="action.logout">
+              <source>action.logout</source>
               <target>Wyloguj</target>
+            </trans-unit>
+            <trans-unit id="label.email">
+              <source>label.email</source>
+              <target>Email</target>
+            </trans-unit>
+            <trans-unit id="label.password">
+              <source>label.password</source>
+              <target>Hasło</target>
+            </trans-unit>
+<!--        Zmiana hasła -->
+            <trans-unit id="label.current_password">
+              <source>label.current_password</source>
+              <target>Stare hasło:</target>
+            </trans-unit>
+            <trans-unit id="label.new_password">
+              <source>label.new_password</source>
+              <target>Nowe hasło:</target>
+            </trans-unit>
+            <trans-unit id="label.confirm_password">
+              <source>label.confirm_password</source>
+              <target>Potwierdź nowe hasło:</target>
+            </trans-unit>
+            <trans-unit id="title.change_password">
+              <source>title.change_password</source>
+              <target>Zmień hasło</target>
+            </trans-unit>
+            <trans-unit id="action.change_password">
+              <source>action.change_password</source>
+              <target>Zmień hasło</target>
+            </trans-unit>
+            <trans-unit id="message.must_be_logged_in">
+              <source>message.must_be_logged_in</source>
+              <target>Musisz być zalogowany</target>
+            </trans-unit>
+            <trans-unit id="message.password_does_not_match">
+              <source>message.password_does_not_match</source>
+              <target>Wpisane hasło jest niepoprawne.</target>
+            </trans-unit>
+            <trans-unit id="message.confirm_password_does_not_match">
+              <source>message.confirm_password_does_not_match</source>
+              <target>Nowe hasła nie pasują do siebie.</target>
             </trans-unit>
     </body>
   </file>
