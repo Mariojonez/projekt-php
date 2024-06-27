@@ -1,16 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ 'title.task_edit'|trans({'%id%': task.id|default('')})}}
+    {{ 'title.reservation_new'|trans}}
 {% endblock %}
 
 {% block body %}
     {% include 'default/_form.html.twig' with {
-        page_title: 'title.task_edit'|trans({'%id%': task.id|default('')}),
+        page_title: 'title.reservation_new'|trans,
         form: form,
-        submit_label: 'action.edit'|trans,
+        submit_label: 'action.reservation_new'|trans,
         back_to_list_path: 'task_index',
     } %}
     {{ form_end(form) }}
 {% endblock %}
-

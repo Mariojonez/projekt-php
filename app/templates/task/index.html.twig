@@ -12,9 +12,17 @@
             <div class="col-md-6">
                 {{ knp_pagination_render(pagination) }}
             </div>
-            <div class="col-md-6">
+            <div class="col-md-3">
                 <a href="{{ url('category_index') }}" title="{{ 'action.category_list'|trans }}" class="btn btn-secondary">
                     {{ 'action.category_list'|trans }}
+                </a>
+            </div>
+            <div class="col-md-3">
+                <a href="{{ url('reservation_new') }}" title="{{ 'action.reservation_new'|trans }}" class="btn btn-primary">
+                    {{ 'action.reservation_new'|trans }}
+                </a>
+                <a href="{{ url('reservation_list') }}" title="{{ 'action.reservation_list'|trans }}" class="btn btn-secondary">
+                    {{ 'action.reservation_list'|trans }}
                 </a>
             </div>
         </div>
@@ -27,7 +35,6 @@
                 <th>{{ knp_pagination_sortable(pagination, 'label.updated_at'|trans, 'task.updatedAt') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 'task.title') }}</th>
                 <th>{{ knp_pagination_sortable(pagination, 'label_category'|trans, 'category.title') }}</th>
-{#                <th>{{ knp_pagination_sortable(pagination, 'label.author'|trans, 'task.author') }}</th>#}
                 <th>{{ 'label.actions'|trans }}</th>
             </tr>
             </thead>

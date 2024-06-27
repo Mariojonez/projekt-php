@@ -1,12 +1,10 @@
 <?php
-/**
- * Task voter.
- */
 
 namespace App\Security\Voter;
 
 use App\Entity\Category;
 use App\Entity\Task;
+use App\Entity\Reservation;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -52,18 +50,25 @@ class TaskVoter extends Voter
     private const SHOW = 'SHOW';
 
     /**
-     * Edit permission.
+     * Edit category permission.
      *
      * @const string
      */
     private const EDIT_CATEGORY = 'EDIT_CATEGORY';
 
     /**
-     * Delete permission.
+     * Delete category permission.
      *
      * @const string
      */
     private const DELETE_CATEGORY = 'DELETE_CATEGORY';
+
+    /**
+     * Change status permission.
+     *
+     * @const string
+     */
+    private const CHANGE_STATUS = 'CHANGE_STATUS';
 
     /**
      * Determines if the attribute and subject are supported by this voter.
@@ -75,8 +80,8 @@ class TaskVoter extends Voter
      */
     protected function supports(string $attribute, mixed $subject): bool
     {
-        return in_array($attribute, [self::EDIT, self::VIEW, self::DELETE, self::CREATE, self::SHOW])
-            && ($subject instanceof Task || $subject === null || $subject instanceof Category);
+        return in_array($attribute, [self::EDIT, self::VIEW, self::DELETE, self::CREATE, self::SHOW, self::EDIT_CATEGORY, self::DELETE_CATEGORY, self::CHANGE_STATUS])
+            && ($subject instanceof Task || $subject instanceof Category || $subject instanceof Reservation);
     }
 
     /**
@@ -93,10 +98,6 @@ class TaskVoter extends Voter
     {
         $user = $token->getUser();
 
-        if ($attribute === self::VIEW || $attribute === self::SHOW){
-            return true; // Allow everyone to view
-        }
-
         if (!$user instanceof UserInterface) {
             return false; // If the user is not logged in, deny other actions
         }
@@ -105,8 +106,11 @@ class TaskVoter extends Voter
             self::EDIT => $this->canEdit($subject, $user),
             self::DELETE => $this->canDelete($subject, $user),
             self::CREATE => $this->canCreate($user),
-            self::EDIT_CATEGORY => $this->canEdit($subject, $user),
-            self::DELETE_CATEGORY => $this->canDelete($subject, $user),
+            self::VIEW => $this->canView($subject, $user),
+            self::SHOW => $this->canView($subject, $user),
+            self::EDIT_CATEGORY => $this->canEditCategory($subject, $user),
+            self::DELETE_CATEGORY => $this->canDeleteCategory($subject, $user),
+            self::CHANGE_STATUS => $this->canChangeStatus($subject, $user),
             default => false,
         };
     }
@@ -127,12 +131,12 @@ class TaskVoter extends Voter
     /**
      * Checks if user can view task.
      *
-     * @param Task          $task Task entity
-     * @param UserInterface $user User
+     * @param mixed          $subject Subject entity
+     * @param UserInterface  $user    User
      *
      * @return bool Result
      */
-    private function canView(Task $task, UserInterface $user): bool
+    private function canView(mixed $subject, UserInterface $user): bool
     {
         return true;
     }
@@ -163,6 +167,19 @@ class TaskVoter extends Voter
     }
 
     /**
+     * Checks if user can change the status of a reservation.
+     *
+     * @param Reservation   $reservation Reservation entity
+     * @param UserInterface $user        User
+     *
+     * @return bool Result
+     */
+    private function canChangeStatus(Reservation $reservation, UserInterface $user): bool
+    {
+        return $this->isAdmin($user);
+    }
+
+    /**
      * Checks if user has admin role.
      *
      * @param UserInterface $user User
@@ -177,8 +194,8 @@ class TaskVoter extends Voter
     /**
      * Checks if user can delete category.
      *
-     * @param Category          $category Category entity
-     * @param UserInterface     $user User
+     * @param Category      $category Category entity
+     * @param UserInterface $user     User
      *
      * @return bool Result
      */
@@ -190,8 +207,8 @@ class TaskVoter extends Voter
     /**
      * Checks if user can edit category.
      *
-     * @param Category          $category Category entity
-     * @param UserInterface     $user User
+     * @param Category      $category Category entity
+     * @param UserInterface $user     User
      *
      * @return bool Result
      */

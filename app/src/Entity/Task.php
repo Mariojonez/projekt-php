@@ -94,6 +94,14 @@ class Task
     private ?User $author;
 
     /**
+     * Author.
+     *
+     * @var string|null
+     */
+    #[ORM\Column(type: 'string', length: 255)]
+    private ?string $status = 'available';
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -231,6 +239,18 @@ class Task
     public function setAuthor(?User $author): static
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }

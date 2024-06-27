@@ -223,6 +223,67 @@
               <source>message.confirm_password_does_not_match</source>
               <target>Nowe hasła nie pasują do siebie.</target>
             </trans-unit>
+<!--             Rezerwacja -->
+            <trans-unit id="label.user">
+              <source>label.user</source>
+              <target>Użytkownik</target>
+            </trans-unit>
+            <trans-unit id="label.status">
+              <source>label.status</source>
+              <target>Status</target>
+            </trans-unit>
+            <trans-unit id="label.comment">
+              <source>label.comment</source>
+              <target>Komentarz</target>
+            </trans-unit>
+            <trans-unit id="title.reservation_change_status">
+              <source>title.reservation_change_status</source>
+              <target>Zmień status rezerwacji</target>
+            </trans-unit>
+            <trans-unit id="title.reservation_new">
+              <source>title.reservation_new</source>
+              <target>Nowa rezerwacja</target>
+            </trans-unit>
+            <trans-unit id="action.change_status">
+              <source>action.change_status</source>
+              <target>Zmień status</target>
+            </trans-unit>
+            <trans-unit id="action.reservation_new">
+              <source>action.reservation_new</source>
+              <target>Zarezerwuj</target>
+            </trans-unit>
+            <trans-unit id="action.reservation_list">
+              <source>action.reservation_list</source>
+              <target>Lista Rezerwacji</target>
+            </trans-unit>
+            <trans-unit id="label.select_task">
+              <source>label.select_task</source>
+              <target>Tytuł</target>
+            </trans-unit>
+            <trans-unit id="placeholder.select_task">
+              <source>placeholder.select_task</source>
+              <target>Wybierz tytuł</target>
+            </trans-unit>
+            <trans-unit id="label.pending">
+              <source>label.pending</source>
+              <target>Oczekujący</target>
+            </trans-unit>
+            <trans-unit id="label.accepted">
+              <source>label.accepted</source>
+              <target>Zaakceptowany</target>
+            </trans-unit>
+            <trans-unit id="label.cancelled">
+              <source>label.cancelled</source>
+              <target>Odrzucony</target>
+            </trans-unit>
+            <trans-unit id="title.reservation_list">
+              <source>title.reservation_list</source>
+              <target>Lista rezerwacji</target>
+            </trans-unit>
+            <trans-unit id="title.change_status">
+              <source>title.change_status</source>
+              <target>Zmień status</target>
+            </trans-unit>
     </body>
   </file>
 </xliff>
